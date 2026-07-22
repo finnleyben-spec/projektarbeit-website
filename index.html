@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projektarbeit I - Produktpräsentation</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Projektarbeit I</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#product">Produkt</a></li>
+                <li><a href="#cad">CAD & 3D</a></li>
+                <li><a href="#animations">Animationen</a></li>
+                <li><a href="https://a360.co/4fFVrYG" target="_blank">Fusion 360 ↗</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 class="fade-in">Projektarbeit I</h1>
+            <p class="subtitle fade-in">Interaktive Produktpräsentation mit 3D-Modellen und Animationen</p>
+            <a href="#product" class="cta-button fade-in">Zum Produkt ↓</a>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="product" class="product-section">
+        <div class="container">
+            <h2 class="section-title slide-up">Das Produkt</h2>
+            <div class="product-grid">
+                <div class="product-image fade-in">
+                    <video autoplay loop muted playsinline class="product-video" poster="">
+                        <source src="assets/videos/upscaled-video.mp4" type="video/mp4">
+                        Ihr Browser unterstützt kein Video.
+                    </video>
+                </div>
+                <div class="product-info slide-up">
+                    <h3>Produktbeschreibung</h3>
+                    <p>Dies ist eine interaktive Präsentation unserer Projektarbeit mit CAD-Modellen, Animationen und einem 3D-Viewer.</p>
+                    <ul class="features-list">
+                        <li>✅ Interaktiver 3D-Viewer (Fusion 360)</li>
+                        <li>✅ Hochwertige Animationen</li>
+                        <li>✅ CAD-Daten (STEP, OBJ)</li>
+                        <li>✅ Fusion 360 Integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAD & 3D Section -->
+    <section id="cad" class="cad-section">
+        <div class="container">
+            <h2 class="section-title slide-up">CAD & 3D Modelle</h2>
+            <p class="section-subtitle slide-up">Interaktiver 3D-Viewer mit verschiedenen Dateiformaten</p>
+            
+            <div class="viewer-container fade-in">
+                <!-- Fusion 360 Embed -->
+                <div id="fusion-viewer" class="viewer-fusion">
+                    <iframe 
+                        src="https://a360.co/4fFVrYG" 
+                        width="100%" 
+                        height="600" 
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <div class="viewer-controls">
+                    <a href="https://a360.co/4fFVrYG" target="_blank" class="control-btn">🔗 Fusion 360 öffnen</a>
+                    <a href="models/Projektarbeit_1_v72.3mf" download class="control-btn">⬇ 3MF Download</a>
+                </div>
+            </div>
+
+            <div class="cad-links slide-up">
+                <h3>Weitere Ressourcen</h3>
+                <div class="link-grid">
+                    <a href="https://a360.co/4fFVrYG" target="_blank" class="resource-card">
+                        <div class="card-icon">🔗</div>
+                        <h4>Fusion 360 Share Link</h4>
+                        <p>Direkter Link zum Fusion 360 Modell</p>
+                    </a>
+                    <a href="models/PA1_Step.step" download class="resource-card">
+                        <div class="card-icon">📐</div>
+                        <h4>STEP Datei</h4>
+                        <p>CAD-Datei für professionelle Bearbeitung</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animations Section -->
+    <section id="animations" class="animations-section">
+        <div class="container">
+            <h2 class="section-title slide-up">Animationen</h2>
+            <p class="section-subtitle slide-up">Produktanimationen und Assembly-Videos</p>
+            
+            <div class="video-grid fade-in">
+                <div class="video-card">
+                    <video controls class="animation-video" poster="">
+                        <source src="assets/videos/upscaled-video.mp4" type="video/mp4">
+                        Ihr Browser unterstützt kein Video.
+                    </video>
+                    <h3>Produkt-Animation</h3>
+                </div>
+                <div class="video-card">
+                    <video controls class="animation-video" poster="">
+                        <source src="assets/videos/Explosion4.mp4" type="video/mp4">
+                        Ihr Browser unterstützt kein Video.
+                    </video>
+                    <h3>Assembly Animation</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Projektarbeit I. Alle Rechte vorbehalten.</p>
+            <div class="footer-links">
+                <a href="#home">Nach oben ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
