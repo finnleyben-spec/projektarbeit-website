@@ -853,6 +853,8 @@ input:focus-visible {
 .gallery-section .gallery-image {
     width: 100% !important;
     height: auto !important;
+    max-height: 400px;
+    object-fit: contain !important;
     display: block;
     margin: 0 auto;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
