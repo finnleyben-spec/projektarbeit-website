@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Projektarbeit I - Mechanischer Kraftverstärker</title>
     <link rel="stylesheet" href="css/styles.css">
     <meta name="description" content="Mechanischer Kraftverstärker – Interaktive Produktpräsentation mit 3D-Modellen, Animationen und modernster CAD-Technologie">
@@ -11,88 +11,106 @@
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#0071e3">
     
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
     <!-- Three.js & Loaders -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js" defer></script>
     
     <!-- GSAP & ScrollTrigger -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Hauptnavigation">
         <div class="container">
-            <a href="#home" class="logo">Projektarbeit I</a>
-            <button class="menu-toggle" aria-label="Menü öffnen">☰</button>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#cad">CAD & 3D</a></li>
-                <li><a href="#concept">Konzept</a></li>
-                <li><a href="#calculations">Berechnungen</a></li>
-                <li><a href="#production">Fertigung</a></li>
-                <li><a href="#costs">Kosten</a></li>
-                <li><a href="#test">Test & Ergebnisse</a></li>
-                <li><a href="#improvements">Verbesserungen</a></li>
-                <li><a href="#business-model">Business</a></li>
-                <li><button class="buy-button" onclick="openPurchaseModal()">🛒 Kaufen</button></li>
-                <li><a href="https://a360.co/4fFVrYG" target="_blank">Fusion 360 ↗</a></li>
+            <a href="#home" class="logo" aria-label="Zur Startseite">Projektarbeit I</a>
+            <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">☰</button>
+            <ul class="nav-links" role="menubar">
+                <li role="none"><a href="#home" role="menuitem">Home</a></li>
+                <li role="none"><a href="#cad" role="menuitem">CAD & 3D</a></li>
+                <li role="none"><a href="#concept" role="menuitem">Konzept</a></li>
+                <li role="none"><a href="#calculations" role="menuitem">Berechnungen</a></li>
+                <li role="none"><a href="#production" role="menuitem">Fertigung</a></li>
+                <li role="none"><a href="#costs" role="menuitem">Kosten</a></li>
+                <li role="none"><a href="#test" role="menuitem">Test & Ergebnisse</a></li>
+                <li role="none"><a href="#improvements" role="menuitem">Verbesserungen</a></li>
+                <li role="none"><a href="#business-model" role="menuitem">Business</a></li>
+                <li role="none"><button class="buy-button" onclick="openPurchaseModal()" aria-label="Kaufsimulation starten">🛒 Kaufen</button></li>
+                <li role="none"><a href="https://a360.co/4fFVrYG" target="_blank" rel="noopener noreferrer" role="menuitem">Fusion 360 ↗</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Purchase Simulation Modal -->
-    <div id="purchaseModal" class="modal-overlay" style="display: none;">
+    <div id="purchaseModal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-content">
-            <button class="modal-close" onclick="closePurchaseModal()">✕</button>
+            <button class="modal-close" onclick="closePurchaseModal()" aria-label="Modal schließen">✕</button>
             
             <div class="shop-layout">
                 <!-- Left Side - Product Images & Animations -->
                 <div class="shop-images">
                     <div class="main-image-container">
-                        <img src="./assets/notion-images/notion_image_15.jpg" alt="Mechanischer Kraftverstärker Getriebe" id="mainProductImage" class="product-image active">
+                        <img src="./assets/notion-images/notion_image_15.jpg" 
+                             alt="Mechanischer Kraftverstärker Getriebe" 
+                             id="mainProductImage" 
+                             class="product-image active"
+                             loading="lazy">
                     </div>
                     
                     <!-- Animation Thumbnails -->
-                    <div class="animation-thumbnails">
-                        <div class="thumbnail active" onclick="switchAnimation(0)">
-                            <video src="./assets/videos/video1_fixed.mp4" muted loop></video>
+                    <div class="animation-thumbnails" role="tablist" aria-label="Animationen">
+                        <div class="thumbnail active" onclick="switchAnimation(0)" role="tab" tabindex="0" aria-selected="true">
+                            <video src="./assets/videos/video1_fixed.mp4" muted loop playsinline preload="metadata"></video>
                             <span class="thumb-label">Animation 1</span>
                         </div>
-                        <div class="thumbnail" onclick="switchAnimation(1)">
-                            <video src="./assets/videos/Explosion4.mp4" muted loop></video>
+                        <div class="thumbnail" onclick="switchAnimation(1)" role="tab" tabindex="0" aria-selected="false">
+                            <video src="./assets/videos/Explosion4.mp4" muted loop playsinline preload="metadata"></video>
                             <span class="thumb-label">Animation 2</span>
                         </div>
                     </div>
                     
                     <!-- Product Gallery -->
-                    <div class="product-gallery">
-                        <img src="./assets/notion-images/notion_image_15.jpg" alt="Getriebe Detail 1" class="gallery-item active" onclick="switchImage(0)">
-                        <img src="./assets/notion-images/notion_image_20.jpg" alt="Getriebe Detail 2" class="gallery-item" onclick="switchImage(1)">
+                    <div class="product-gallery" role="group" aria-label="Produktgalerie">
+                        <img src="./assets/notion-images/notion_image_15.jpg" 
+                             alt="Getriebe Detail 1" 
+                             class="gallery-item active" 
+                             onclick="switchImage(0)"
+                             loading="lazy"
+                             width="80" height="80">
+                        <img src="./assets/notion-images/notion_image_20.jpg" 
+                             alt="Getriebe Detail 2" 
+                             class="gallery-item" 
+                             onclick="switchImage(1)"
+                             loading="lazy"
+                             width="80" height="80">
                     </div>
                 </div>
 
                 <!-- Right Side - Product Details & Costs -->
                 <div class="shop-details">
-                    <h2>Mechanischer Kraftverstärker</h2>
+                    <h2 id="modalTitle">Mechanischer Kraftverstärker</h2>
                     <p class="product-subtitle">Interaktives Demonstrationsgerät mit 3D-Drucktechnologie</p>
                     
                     <!-- Price Display -->
-                    <div class="price-display">
-                        <span class="current-price">15,12 €</span>
-                        <span class="original-price">19,92 €</span>
-                        <span class="discount-badge">-24%</span>
+                    <div class="price-display" role="group" aria-label="Preisinformation">
+                        <span class="current-price" aria-label="Aktueller Preis: 15 Euro und 12 Cent">15,12 €</span>
+                        <span class="original-price" aria-label="Ursprünglicher Preis: 19 Euro und 92 Cent">19,92 €</span>
+                        <span class="discount-badge" aria-label="Rabatt: 24 Prozent">-24%</span>
                     </div>
 
                     <!-- Cost Breakdown Table -->
                     <div class="cost-breakdown">
                         <h3>Kostenübersicht (optimiert)</h3>
-                        <table class="shop-cost-table">
+                        <table class="shop-cost-table" role="table" aria-label="Kostenübersicht">
                             <thead>
                                 <tr>
-                                    <th>Komponente</th>
-                                    <th>Preis</th>
+                                    <th scope="col">Komponente</th>
+                                    <th scope="col">Preis</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,7 +139,7 @@
                     </div>
 
                     <!-- Simulation Notice -->
-                    <p class="simulation-note">⚠️ Dies ist nur eine Simulation - Es wird nichts bestellt!</p>
+                    <p class="simulation-note" role="alert">⚠️ Dies ist nur eine Simulation - Es wird nichts bestellt!</p>
                 </div>
             </div>
         </div>
@@ -135,7 +153,7 @@
             <a href="#cad" class="cta-button fade-in">Zum CAD-Modell ↓</a>
             
             <!-- Floating decorative elements -->
-            <div class="hero-decoration">
+            <div class="hero-decoration" aria-hidden="true">
                 <span class="floating-icon icon-1">⚙️</span>
                 <span class="floating-icon icon-2">🔧</span>
                 <span class="floating-icon icon-3">💡</span>
@@ -158,12 +176,14 @@
                         width="100%" 
                         height="700" 
                         frameborder="0"
-                        allowfullscreen>
+                        allowfullscreen
+                        loading="lazy"
+                        title="Fusion 360 CAD-Modell Viewer">
                     </iframe>
                 </div>
                 
                 <div class="viewer-controls">
-                    <a href="https://a360.co/4fFVrYG" target="_blank" class="control-btn">🔗 Fusion 360 öffnen</a>
+                    <a href="https://a360.co/4fFVrYG" target="_blank" rel="noopener noreferrer" class="control-btn">🔗 Fusion 360 öffnen</a>
                     <a href="models/Projektarbeit_1_v72.3mf" download class="control-btn">⬇ 3MF Download</a>
                 </div>
             </div>
@@ -173,21 +193,21 @@
                 <h3>📊 Aktueller Projektstand (aus Abschlusspräsentation)</h3>
                 <div class="status-grid">
                     <div class="status-item">
-                        <span class="status-icon">✅</span>
+                        <span class="status-icon" aria-hidden="true">✅</span>
                         <div>
                             <strong>CAD-Modell vollständig erstellt</strong>
                             <p>Für Prototypenfertigung vorbereitet</p>
                         </div>
                     </div>
                     <div class="status-item">
-                        <span class="status-icon">✅</span>
+                        <span class="status-icon" aria-hidden="true">✅</span>
                         <div>
                             <strong>Berechnungen bestätigt</strong>
                             <p>Grundlegende Funktionsfähigkeit des Konzepts</p>
                         </div>
                     </div>
                     <div class="status-item">
-                        <span class="status-icon">✅</span>
+                        <span class="status-icon" aria-hidden="true">✅</span>
                         <div>
                             <strong>Gantt-Chart aktualisiert</strong>
                             <p>Aufgaben aus der nächsten Phase vorgezogen</p>
@@ -200,18 +220,18 @@
             <div class="resources-grid slide-up">
                 <h3>📎 Wichtige Ressourcen</h3>
                 <div class="resource-cards">
-                    <a href="https://a360.co/4fFVrYG" target="_blank" class="resource-card">
-                        <div class="card-icon">🔗</div>
+                    <a href="https://a360.co/4fFVrYG" target="_blank" rel="noopener noreferrer" class="resource-card">
+                        <div class="card-icon" aria-hidden="true">🔗</div>
                         <h4>Fusion 360 Share Link</h4>
                         <p>Direkter Link zum Fusion 360 Modell mit interaktiver Betrachtung</p>
                     </a>
                     <a href="models/Projektarbeit.obj" download class="resource-card">
-                        <div class="card-icon">📦</div>
+                        <div class="card-icon" aria-hidden="true">📦</div>
                         <h4>OBJ Datei</h4>
                         <p>3D-Modell im OBJ-Format für allgemeine 3D-Anwendungen</p>
                     </a>
                     <a href="models/Projektarbeit.mtl" download class="resource-card">
-                        <div class="card-icon">🎨</div>
+                        <div class="card-icon" aria-hidden="true">🎨</div>
                         <h4>MTL Datei</h4>
                         <p>Material-Definition für das 3D-Modell</p>
                     </a>
@@ -221,18 +241,18 @@
                 <div class="presentation-links">
                     <h3>📄 Präsentationen & Unterlagen</h3>
                     <div class="link-cards">
-                        <a href="https://1drv.ms/p/c/89e7d34ee9c81e0e/IQCBrKoNR96pTI8j6rwg-QewAaljFGEOZQOiIH_KA2-ljmc" target="_blank" class="link-card">
-                            <div class="link-icon">📄</div>
+                        <a href="https://1drv.ms/p/c/89e7d34ee9c81e0e/IQCBrKoNR96pTI8j6rwg-QewAaljFGEOZQOiIH_KA2-ljmc" target="_blank" rel="noopener noreferrer" class="link-card">
+                            <div class="link-icon" aria-hidden="true">📄</div>
                             <h4>Abschlusspräsentation (PPTX)</h4>
                             <p>Direkter Link zur PowerPoint-Präsentation</p>
                         </a>
-                        <a href="https://1drv.ms/x/c/89e7d34ee9c81e0e/IQB-rPQkMsxORp2oBANTZg0aAa8Ceo66fUKMwjIWjuvRIZI" target="_blank" class="link-card">
-                            <div class="link-icon">📊</div>
+                        <a href="https://1drv.ms/x/c/89e7d34ee9c81e0e/IQB-rPQkMsxORp2oBANTZg0aAa8Ceo66fUKMwjIWjuvRIZI" target="_blank" rel="noopener noreferrer" class="link-card">
+                            <div class="link-icon" aria-hidden="true">📊</div>
                             <h4>Zwischenbericht (XLSX)</h4>
                             <p>Detaillierte Berechnungen und Stücklisten</p>
                         </a>
-                        <a href="https://1drv.ms/x/c/89e7d34ee9c81e0e/IQDRD3d4pyQmTb75mDb5ZF1zAdekJAtgXd90zsPX63LD97U" target="_blank" class="link-card">
-                            <div class="link-icon">📋</div>
+                        <a href="https://1drv.ms/x/c/89e7d34ee9c81e0e/IQDRD3d4pyQmTb75mDb5ZF1zAdekJAtgXd90zsPX63LD97U" target="_blank" rel="noopener noreferrer" class="link-card">
+                            <div class="link-icon" aria-hidden="true">📋</div>
                             <h4>Weitere Unterlagen (XLSX)</h4>
                             <p>Zusätzliche Dokumente und Analysen</p>
                         </a>
@@ -286,28 +306,28 @@
                 <h3>💡 Wichtige Erkenntnisse aus dem Projekt</h3>
                 <div class="insights-grid">
                     <div class="insight-item">
-                        <span class="insight-icon">📝</span>
+                        <span class="insight-icon" aria-hidden="true">📝</span>
                         <div>
                             <strong>Passive Formulierung</strong>
                             <p>"Wir" wurde durch passive Konstruktionen ersetzt für professionellen Ton.</p>
                         </div>
                     </div>
                     <div class="insight-item">
-                        <span class="insight-icon">🔧</span>
+                        <span class="insight-icon" aria-hidden="true">🔧</span>
                         <div>
                             <strong>Explosionszeichnung erstellt</strong>
                             <p>Aufbau detailliert dokumentiert mit Toleranzen und Passungen erklärt.</p>
                         </div>
                     </div>
                     <div class="insight-item">
-                        <span class="insight-icon">📊</span>
+                        <span class="insight-icon" aria-hidden="true">📊</span>
                         <div>
                             <strong>Datenbasierte Analyse</strong>
                             <p>% der Berechnungen wurden erfolgreich validiert und dokumentiert.</p>
                         </div>
                     </div>
                     <div class="insight-item">
-                        <span class="insight-icon">🔄</span>
+                        <span class="insight-icon" aria-hidden="true">🔄</span>
                         <div>
                             <strong>Projektplan als Referenz</strong>
                             <p>Oft auf den Projektplan zurückgegriffen für Struktur und Übersicht.</p>
@@ -396,22 +416,22 @@
                 <h3>✨ Wichtige Merkmale</h3>
                 <div class="features-grid">
                     <div class="feature-item">
-                        <span class="feature-icon">🎯</span>
+                        <span class="feature-icon" aria-hidden="true">🎯</span>
                         <strong>Zielsetzung</strong>
                         <p>Maximierung des messbaren Kraft-Outputs mit nur 1kg Masse als Energiequelle</p>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon">⚙️</span>
+                        <span class="feature-icon" aria-hidden="true">⚙️</span>
                         <strong>Konzept</strong>
                         <p>Hebel + Getriebe für maximale Kraftverstärkung</p>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon">🔧</span>
+                        <span class="feature-icon" aria-hidden="true">🔧</span>
                         <strong>Fertigung</strong>
                         <p>Additive Fertigung mit FDM-Druckern (Bambu Lab P2S)</p>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon">✅</span>
+                        <span class="feature-icon" aria-hidden="true">✅</span>
                         <strong>Status</strong>
                         <p>CAD-Modell vollständig erstellt, Berechnungen bestätigt</p>
                     </div>
@@ -500,1016 +520,18 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Calculation Links -->
-            <div class="calc-links slide-up">
-                <h3>📎 Detaillierte Berechnungen</h3>
-                <p style="text-align: center; margin-bottom: 24px;">Alle Einzelnen Rechenschritte in der Excel-Datei verfügbar</p>
-                <div class="links-grid">
-                    <a href="https://1drv.ms/x/c/89e7d34ee9c81e0e/IQB-rPQkMsxORp2oBANTZg0aAa8Ceo66fUKMwjIWjuvRIZI" target="_blank" class="link-card">
-                        <div class="link-icon">📊</div>
-                        <h4>Berechnungs-Excel</h4>
-                        <p>Detaillierte Berechnungen und Sicherheitswerte</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Production Section -->
-    <section id="production" class="production-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Technische Umsetzung & Realisierung</h2>
-            <p class="section-subtitle slide-up">Fertigung, Materialwahl und Zusammenbau</p>
-            
-            <!-- Manufacturing -->
-            <div class="production-grid fade-in">
-                <div class="production-card">
-                    <h3>🖨️ Additive Fertigung</h3>
-                    <div class="prod-content">
-                        <p><strong>Fertigung:</strong> Additive Fertigung mit FDM-Druckern der Marke Bambu Lab (Modell: P2S)</p>
-                        <p style="margin-top: 16px;"><strong>Vorteile:</strong> Gute Preis-Leistung, besonders hohe Wiederholgenauigkeit + einfacher Druckbetrieb</p>
-                    </div>
-                </div>
-
-                <div class="production-card">
-                    <h3>🧪 Materialwahl: PLA</h3>
-                    <div class="prod-content">
-                        <p><strong>Materiale:</strong> PLA (Polylactic Acid)</p>
-                        <ul class="feature-list">
-                            <li>Vor- und Nachteile des PLA Materials dokumentiert</li>
-                            <li>Geeignet für Prototypenfertigung</li>
-                            <li>Einfache Verarbeitung</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="production-card">
-                    <h3>🔩 Zusammenbau</h3>
-                    <div class="prod-content">
-                        <p><strong>Zusammenbau:</strong> Alles mit 3mm Innensechskant zusammengebaut</p>
-                        <ul class="feature-list">
-                            <li>Einfacher Aufbau</li>
-                            <li>Normteile verwendbar</li>
-                            <li>Reparierbarkeit sichergestellt</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="production-card">
-                    <h3>⚠️ Risikoabschätzung</h3>
-                    <div class="prod-content">
-                        <ul class="feature-list">
-                            <li><strong>Stabilität:</strong> Könnte durch Infill/Druck anders als erwartet sein, was Einfluss auf die Festigkeit hätte</li>
-                            <li><strong>Schrauben:</strong> Bei zu starker Belastung der Schrauben könnten unter Torsion verformt/zerstört werden</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Conclusion -->
-            <div class="conclusion-box slide-up">
-                <h3>✅ Fazit der technischen Planung</h3>
-                <div class="conclusion-content">
-                    <div class="conclusion-item">
-                        <strong>Erster Testdruck abgeschlossen:</strong> Funktioniert vom Lauf der Zahnräder flüssig, Toleranzen passend gewählt
-                    </div>
-                    <div class="conclusion-item">
-                        <strong>Bei Instabilität:</strong> Kann Infill oder Tiefe verändert werden
-                    </div>
-                    <div class="conclusion-item">
-                        <strong>Umsetzbarkeit:</strong> Änderungen und Verbesserungen jederzeit möglich, ermöglicht durch gegebenen 3D-Drucker
-                    </div>
-                    <div class="conclusion-item">
-                        <strong>Flexibilität:</strong> Normteil austauschbar ohne große Arbeit, Toleranzen die benötigt werden sind erreichbar
-                    </div>
-                    <div class="conclusion-item">
-                        <strong>Oberflächenrauheiten:</strong> Können gegebenfalls nachgebessert werden
-                    </div>
-                </div>
-            </div>
-
-            <!-- Current Status -->
-            <div class="status-box slide-up">
-                <h3>📊 Aktueller Projektstand</h3>
-                <div class="status-grid">
-                    <div class="status-item">
-                        <span class="status-icon">✅</span>
-                        <strong>CAD-Modell vollständig erstellt</strong>
-                        <p>Für Prototypenfertigung vorbereitet</p>
-                    </div>
-                    <div class="status-item">
-                        <span class="status-icon">✅</span>
-                        <strong>Berechnungen bestätigen die grundsätzliche Funktionsfähigkeit des Konzepts</strong>
-                    </div>
-                    <div class="status-item">
-                        <span class="status-icon">✅</span>
-                        <strong>Gantt-Chart: Aufgaben aus der nächsten Phase wurden vorgezogen</strong>
-                        <p>Das Getriebe wurde ausgedruckt, da die Modellierung fertiggestellt</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Production Links -->
-            <div class="prod-links slide-up">
-                <h3>📎 Fertigungsunterlagen</h3>
-                <div class="links-grid">
-                    <a href="https://1drv.ms/x/c/89e7d34ee9c81e0e/IQDRD3d4pyQmTb75mDb5ZF1zAdekJAtgXd90zsPX63LD97U" target="_blank" class="link-card">
-                        <div class="link-icon">📋</div>
-                        <h4>Weitere Unterlagen (XLSX)</h4>
-                        <p>Zusätzliche Dokumente und Analysen</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Costs Section -->
-    <section id="costs" class="costs-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Kostenanalyse</h2>
-            <p class="section-subtitle slide-up">Prototypen- und Serienfertigungskosten</p>
-            
-            <!-- Prototype Costs -->
-            <div class="cost-grid fade-in">
-                <div class="cost-card">
-                    <h3>💰 Kostenanalyse Prototyp</h3>
-                    <div class="cost-content">
-                        <div class="total-cost">
-                            <strong>Gesamtkosten des Prototyps:</strong> 66,85€
-                        </div>
-                        
-                        <div class="cost-breakdown">
-                            <p><strong>Höchste Kostenfaktoren:</strong></p>
-                            <ul class="feature-list">
-                                <li>Messgerät mit 24,99€ (37,38%)</li>
-                                <li>Aluprofil mit 22,35€ (33,43%)</li>
-                            </ul>
-                            <p style="margin-top: 16px;"><strong>Mit 70,81% der größte Kostenanteil</strong></p>
-                            <p>Sie werden in der Serienfertigung nicht berücksichtigt, da sie ausschließlich als Messhilfe und Aufhängung dienen</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cost-card">
-                    <h3>📊 Kostenvorausplanung Serienfertigung</h3>
-                    <div class="cost-content">
-                        <p><strong>Zuerst haben wir alle nötigenden Preise und Daten gesammelt:</strong></p>
-                        <ul class="feature-list">
-                            <li>Produktionszeit, Kosten, Laufzeit, Anschaffung, etc.</li>
-                        </ul>
-                        
-                        <div class="comparison-box">
-                            <p><strong>Vergleich zum Prototypen ohne Messhilfen und Aufhängung (Messgerät, Gestell, etc.):</strong></p>
-                            <div class="cost-savings">
-                                Kostensenkung um 51,23€
-                            </div>
-                        </div>
-
-                        <div class="additional-costs">
-                            <p><strong>Zusätzliche Kosten:</strong></p>
-                            <ul class="feature-list">
-                                <li>Mitarbeiterkosten</li>
-                                <li>Maschinenkosten</li>
-                            </ul>
-                        </div>
-
-                        <div class="final-cost">
-                            <strong>Gesamtsumme der Serienproduktion:</strong> 19,92€
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Production Planning -->
-            <div class="production-planning slide-up">
-                <h3>🏭 Produktionsplanung</h3>
-                <div class="planning-grid">
-                    <div class="planning-item">
-                        <strong>Bedarf:</strong> 54 Drucker
-                    </div>
-                    <div class="planning-item">
-                        <strong>Effektive Laufzeit der Drucker:</strong> 20 Stunden
-                    </div>
-                    <div class="planning-item">
-                        <strong>Maschinenführer*in:</strong> ca. 31.000 €/Jahr
-                    </div>
-                </div>
-
-                <div class="planning-details slide-up">
-                    <p><strong>Dabei könnten die Drucker außerhalb der Arbeitszeit laufen</strong></p>
-                    <p style="margin-top: 16px;"><strong>Arbeiter somit nur benötigt um:</strong></p>
-                    <ul class="feature-list">
-                        <li>Druckteile zu entnehmen</li>
-                        <li>Filament zu befüllen</li>
-                        <li>Neustart des Druckvorgangs zu übernehmen</li>
-                        <li>Bei möglichen Reparaturfällen (oder weiterem) diese zu beheben</li>
-                    </ul>
-                </div>
-
-                <div class="cost-comparison-box slide-up">
-                    <h4>Kostenvergleich: 3D-Druck vs. Spritzguss</h4>
-                    <p><strong>Im Vergleich zum Prototypen ohne Messhilfen und Aufhängung (Messgerät, Gestell, etc.):</strong></p>
-                    <div class="cost-savings">Kostensenkung um 51,23€</div>
-                    
-                    <p style="margin-top: 16px;"><strong>Zusätzliche Mitarbeiterkosten und Maschinenkosten:</strong></p>
-                    <p><strong>Durch hohe Stückzahlen haben wir eine Kosteneinsparung von mehr als 50%</strong></p>
-                    
-                    <div class="final-cost">
-                        <strong>Gesamtsumme der Serienproduktion:</strong> 19,92€
-                    </div>
-                </div>
-
-                <div class="conclusion-box slide-up">
-                    <h4>Durchaus konnten folgende Ergebnisse aus der Szenarioanalyse erworben werden:</h4>
-                    <ul class="feature-list">
-                        <li>Gestell und Messhilfen verursachen die größten Kosten für den Prototyp (ca. 70%)</li>
-                        <li>Szenarioanalyse zeigt, dass eine Anpassung des Produktaufbaus für die Serienfertigung zu einer Kostenreduzierung von etwa 70% führt</li>
-                        <li>Zusätzliche Kostensenkung wird durch Großmengenbeschaffung in der Serienproduktion erreicht</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Cost Links -->
-            <div class="cost-links slide-up">
-                <h3>📎 Detaillierte Kostenanalysen</h3>
-                <div class="links-grid">
-                    <a href="https://1drv.ms/x/c/89e7d34ee9c81e0e/IQB-rPQkMsxORp2oBANTZg0aAa8Ceo66fUKMwjIWjuvRIZI" target="_blank" class="link-card">
-                        <div class="link-icon">📊</div>
-                        <h4>Kostenvorausplanung (XLSX)</h4>
-                        <p>Detaillierte Berechnungen und Szenarioanalyse</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Projekt-Galerie</h2>
-            <p class="section-subtitle slide-up">Einblicke in den Entwicklungsprozess und Ergebnisse</p>
-            
-            <div class="gallery-grid fade-in">
-                <!-- Row 1 -->
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_16.jpg" alt="CAD-Screenshot" class="gallery-image">
-                    <div class="caption">CAD-Screenshot</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_17.jpg" alt="Design-Detail" class="gallery-image">
-                    <div class="caption">Design-Detail</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_18.jpg" alt="Modell-Ansicht" class="gallery-image">
-                    <div class="caption">3D-Modell-Ansicht</div>
-                </div>
-                
-                <!-- Row 2 -->
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_19.jpg" alt="Technische Zeichnung" class="gallery-image">
-                    <div class="caption">Technische Zeichnung</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_20.jpg" alt="Render-Ansicht" class="gallery-image">
-                    <div class="caption">Render-Ansicht</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_30.jpg" alt="Dokumentation" class="gallery-image">
-                    <div class="caption">Projekt-Dokumentation</div>
-                </div>
-                
-                <!-- Row 3 -->
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_31.jpg" alt="Entwicklung" class="gallery-image">
-                    <div class="caption">Entwicklungsprozess</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_32.jpg" alt="Testing" class="gallery-image">
-                    <div class="caption">Qualitätssicherung</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_33.jpg" alt="Ergebnis" class="gallery-image">
-                    <div class="caption">Endergebnis</div>
-                </div>
-                
-                <!-- Row 4 -->
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_34.jpg" alt="Detailansicht" class="gallery-image">
-                    <div class="caption">Detailansicht</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_35.jpg" alt="Prozess" class="gallery-image">
-                    <div class="caption">Arbeitsprozess</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/notion-images/notion_image_36.jpg" alt="Fortschritt" class="gallery-image">
-                    <div class="caption">Projekt-Fortschritt</div>
-                </div>
-            </div>
-            
-            <div class="ai-disclaimer slide-up">
-                <p>📸 Alle Bilder stammen aus dem Notion-Projektmanagement-System und dokumentieren den Entwicklungsprozess</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Animations Section -->
-    <section id="animations" class="animations-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Animationen</h2>
-            <p class="section-subtitle slide-up">Produktanimationen und Assembly-Videos zur Veranschaulichung</p>
-            
-            <div class="video-grid fade-in">
-                <div class="video-card">
-                    <video controls class="animation-video" poster="">
-                        <source src="assets/videos/upscaled-video.mp4" type="video/mp4">
-                        Ihr Browser unterstützt kein Video.
-                    </video>
-                    <h3>Produkt-Animation</h3>
-                    <p>Hochwertige Produktpräsentation mit animierten Details und Funktionen</p>
-                </div>
-                <div class="video-card">
-                    <video controls class="animation-video" poster="">
-                        <source src="assets/videos/Explosion4.mp4" type="video/mp4">
-                        Ihr Browser unterstützt kein Video.
-                    </video>
-                    <h3>Assembly Animation</h3>
-                    <p>Detaillierte Zusammenbau-Anleitung und Funktionsweise des Produkts</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Test & Ergebnisse Section -->
-    <section id="test" class="test-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Test & Ergebnisse</h2>
-            <p class="section-subtitle slide-up">Praktische Erfahrungen und technische Erkenntnisse aus der Testphase</p>
-            
-            <!-- Problems Observed -->
-            <div class="test-grid fade-in">
-                <div class="test-card">
-                    <h3>🔍 Beobachtete Probleme</h3>
-                    <ul class="problem-list">
-                        <li><strong>Getriebe rutschte durch:</strong> Ab einer gewissen Kraft kam es zum Durchrutschen des Getriebes</li>
-                        <li><strong>Achsen nicht stabil genug:</strong> Die Achse, kleinere Planeten und der Außenring waren nicht steif genug</li>
-                        <li><strong>Halter brach:</strong> Bei zu hoher Last versagte die Halterung</li>
-                        <li><strong>Unrundes Drehen:</strong> Der Split-Ring drehte sich unregelmäßig</li>
-                        <li><strong>Zu geringe Strecke:</strong> Für eine vollständige Versuchsvorführung war der Weg zu kurz</li>
-                    </ul>
-                </div>
-
-                <div class="test-card">
-                    <h3>📊 Ursachenanalyse</h3>
-                    <ul class="problem-list">
-                        <li><strong>Berechnungen nur gegen Bruch:</strong> Sicherheiten waren für Bruch berechnet, nicht für Verformung</li>
-                        <li><strong>Infill reduziert:</strong> Zur Kosteneinsparung wurde Infill reduziert, was Steifigkeit beeinträchtigte</li>
-                        <li><strong>Zahnrad-Positionierung:</strong> Unterschiedliche Zahnpositionen der Planetengetriebe ermöglichten Verschiebung</li>
-                        <li><strong>Keine realitätsnahe Analyse:</strong> Berechnungen dienten nur als Sicherheiten, nicht für Steifigkeitsanalysen</li>
-                    </ul>
-                </div>
-
-                <div class="test-card">
-                    <h3>⚠️ Wichtige Erkenntnis</h3>
-                    <p><strong>"Goldene Regel der Mechanik":</strong></p>
-                    <p>Nicht nur Sicherheiten gegen Bruch berechnen, sondern auch gegen Verformung! Verformung sorgt für Durchrutschen und beeinträchtigt die Funktion.</p>
-                </div>
-            </div>
-
-            <!-- Stress-Strain Diagram -->
-            <div class="test-insights slide-up">
-                <h3>📈 Spannungs-Dehnungsdiagramm (PLA)</h3>
-                <div class="insight-grid">
-                    <div class="insight-item">
-                        <strong>Elastische Verformung:</strong> Bis 1,8% Dehnung
-                    </div>
-                    <div class="insight-item">
-                        <strong>Plastische Dehnung:</strong> Ca. 2% bis zum Einschnüren und Bruch
-                    </div>
-                    <div class="insight-item">
-                        <strong>Eigenschaft:</strong> PLA ist im Vergleich zu anderen Plastiksorten sehr steif
-                    </div>
-                </div>
-                <p style="margin-top: 24px; text-align: center;"><em>Warum ist es trotzdem so instabil? → Infill und Layerlinien beeinflussen die Stabilität</em></p>
-            </div>
-
-            <!-- Safety Factors -->
-            <div class="safety-box slide-up">
-                <h3>🛡️ Berechnete Sicherheiten (gegen Bruch)</h3>
-                <div class="safety-grid">
-                    <div class="safety-item">
-                        <span class="safety-value">20,53</span>
-                        <span class="safety-label">Seil</span>
-                    </div>
-                    <div class="safety-item">
-                        <span class="safety-value">3,25</span>
-                        <span class="safety-label">Zähne</span>
-                    </div>
-                    <div class="safety-item">
-                        <span class="safety-value">29,33</span>
-                        <span class="safety-label">Bügel</span>
-                    </div>
-                    <div class="safety-item">
-                        <span class="safety-value">38,24</span>
-                        <span class="safety-label">Zapfen</span>
-                    </div>
-                    <div class="safety-item">
-                        <span class="safety-value">22,08</span>
-                        <span class="safety-label">Achse</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Verbesserungen Section -->
-    <section id="improvements" class="improvements-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Verbesserungen am Prototypen</h2>
-            <p class="section-subtitle slide-up">Was wurde basierend auf den Test-Ergebnissen geändert?</p>
-            
-            <div class="improvement-grid fade-in">
-                <div class="improvement-card">
-                    <div class="improvement-icon">🔄</div>
-                    <h3>Hebel durch Rad ersetzt</h3>
-                    <p><strong>Vorteil:</strong> Erhöhung des Weges (abhängig von der Größe)</p>
-                    <p style="margin-top: 12px;"><em>Nachteil:</em> Verringerung der maximalen Kraft</p>
-                </div>
-
-                <div class="improvement-card">
-                    <div class="improvement-icon">📏</div>
-                    <h3>Variabler Hebel am Output</h3>
-                    <p>Möglichkeit, die resultierende Strecke zu ändern durch variablen Hebelarm</p>
-                </div>
-
-                <div class="improvement-card">
-                    <div class="improvement-icon">💪</div>
-                    <h3>Verdickung problematischer Teile</h3>
-                    <p>Analyse der problematischen Teile und Vergrößerung/Verdickung für mehr Steifigkeit</p>
-                </div>
-
-                <div class="improvement-card">
-                    <div class="improvement-icon">⬆️</div>
-                    <h3>Infill erhöht</h3>
-                    <p>Erhöhung des Infills für mehr Steifigkeit und Stabilität</p>
-                </div>
-
-                <div class="improvement-card">
-                    <div class="improvement-icon">🎯</div>
-                    <h3>CAD-Optimierung</h3>
-                    <p>Optimierung der CAD-Dateien für supportlosen Druck</p>
-                </div>
-
-                <div class="improvement-card">
-                    <div class="improvement-icon">🔧</div>
-                    <h3>Prüfgewicht & Augenschraube</h3>
-                    <p>Anpassung der Befestigung für bessere Kraftübertragung</p>
-                </div>
-            </div>
-
-            <div class="improvement-conclusion slide-up">
-                <p><strong>Fazit:</strong> Durch die Kombination aus vergrößertem Inputrad (80 cm Durchmesser) und minimalem Output (1,5 cm) könnten bei 4 Umdrehungen insgesamt 20,11 m Seillänge erreicht werden.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Kostenoptimierung Section -->
-    <section id="cost-optimization" class="costs-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Kostenoptimierung</h2>
-            <p class="section-subtitle slide-up">Detaillierte Aufschlüsselung der Kosten und Optimierungspotenziale</p>
-            
-            <!-- Cost Optimization Table -->
-            <div class="cost-table-container fade-in">
-                <table class="cost-optimization-table">
-                    <thead>
-                        <tr>
-                            <th>Komponente</th>
-                            <th>Serienfertigung (ursprünglich)</th>
-                            <th>Serienfertigung (optimiert)</th>
-                            <th>Einsparung</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>M4 Unterlegscheibe</td>
-                            <td>0,05 €</td>
-                            <td>0,08 €</td>
-                            <td>-0,03 €</td>
-                        </tr>
-                        <tr>
-                            <td>M4 10 mm Schrauben</td>
-                            <td>0,24 €</td>
-                            <td>0,04 €</td>
-                            <td>+0,20 €</td>
-                        </tr>
-                        <tr>
-                            <td>M4 40mm Schrauben</td>
-                            <td>0,32 €</td>
-                            <td>0,21 €</td>
-                            <td>+0,11 €</td>
-                        </tr>
-                        <tr>
-                            <td>M4 Muttern</td>
-                            <td>0,60 €</td>
-                            <td>0,09 €</td>
-                            <td>+0,51 €</td>
-                        </tr>
-                        <tr>
-                            <td>Alurohr 1m</td>
-                            <td>0,75 €</td>
-                            <td>- €</td>
-                            <td>+0,75 €</td>
-                        </tr>
-                        <tr>
-                            <td>Kugellager 608</td>
-                            <td>1,44 €</td>
-                            <td>1,30 €</td>
-                            <td>+0,14 €</td>
-                        </tr>
-                        <tr>
-                            <td>PLA-Filament</td>
-                            <td>6,13 €</td>
-                            <td>5,10 €</td>
-                            <td>+1,03 €</td>
-                        </tr>
-                        <tr>
-                            <td>3D Drucker</td>
-                            <td>4,19 €</td>
-                            <td>1,22 €</td>
-                            <td>+2,97 €</td>
-                        </tr>
-                        <tr>
-                            <td>Maschinenführer</td>
-                            <td>6,20 €</td>
-                            <td>6,20 €</td>
-                            <td>0,00 €</td>
-                        </tr>
-                        <tr>
-                            <td>M4 14mm Schrauben</td>
-                            <td>- €</td>
-                            <td>0,06 €</td>
-                            <td>-0,06 €</td>
-                        </tr>
-                        <tr>
-                            <td>M4 16mm Schrauben</td>
-                            <td>- €</td>
-                            <td>0,02 €</td>
-                            <td>-0,02 €</td>
-                        </tr>
-                        <tr>
-                            <td>M4 20mm Schrauben</td>
-                            <td>- €</td>
-                            <td>0,08 €</td>
-                            <td>-0,08 €</td>
-                        </tr>
-                        <tr>
-                            <td>M6 45mm Schrauben</td>
-                            <td>- €</td>
-                            <td>0,63 €</td>
-                            <td>-0,63 €</td>
-                        </tr>
-                        <tr>
-                            <td>M6 Muttern</td>
-                            <td>- €</td>
-                            <td>0,09 €</td>
-                            <td>-0,09 €</td>
-                        </tr>
-                        <tr>
-                            <td>Stromkosten</td>
-                            <td>- €</td>
-                            <td>0,03 €</td>
-                            <td>-0,03 €</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td><strong>Summe</strong></td>
-                            <td><strong>19,92 €</strong></td>
-                            <td><strong>15,12 €</strong></td>
-                            <td><strong>+4,80 €</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Key Optimizations -->
-            <div class="optimization-insights slide-up">
-                <h3>🎯 Maßgebliche Optimierungen</h3>
-                <div class="insight-grid">
-                    <div class="insight-item">
-                        <strong>Kostengünstigere 3D-Drucker:</strong> Auswahl günstigerer Drucker und Anbieter
-                    </div>
-                    <div class="insight-item">
-                        <strong>Druckzeit reduziert:</strong> Dadurch weniger Drucker benötigt
-                    </div>
-                    <div class="insight-item">
-                        <strong>Normteile erhöht:</strong> Geringerer Einfluss auf Serienfertigung
-                    </div>
-                    <div class="insight-item">
-                        <strong>Produktumfang reduziert:</strong> Nur Getriebe, Input/Output aus Eigenfertigung (Material aus Eigenbestand)
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cost Savings Highlight -->
-            <div class="cost-savings-highlight slide-up">
-                <div class="savings-box">
-                    <h3>💰 Gesamteinsparung</h3>
-                    <p>Von 19,92 € auf <strong>15,12 €</strong></p>
-                    <p class="savings-amount">Ersparnis: 4,80 € (24%)</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Business Model Section -->
-    <section id="business-model" class="business-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Business Modell (B2C)</h2>
-            <p class="section-subtitle slide-up">Vertriebskonzept und Zielgruppe</p>
-            
-            <!-- Business Model Flow -->
-            <div class="business-flow fade-in">
-                <div class="flow-step">
-                    <div class="step-icon">🏭</div>
-                    <h4>Produktion</h4>
-                    <p>Eigenfertigung mit 3D-Druckern</p>
-                </div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-step">
-                    <div class="step-icon">🌐</div>
-                    <h4>Online-Store</h4>
-                    <p>E-Commerce Plattform</p>
-                </div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-step">
-                    <div class="step-icon">👤</div>
-                    <h4>Käufer*innen</h4>
-                    <p>Direktverkauf an Endkunden</p>
-                </div>
-            </div>
-
-            <!-- Advantages -->
-            <div class="business-advantages slide-up">
-                <h3>✅ Vorteile des B2C-Modells</h3>
-                <div class="advantage-grid">
-                    <div class="advantage-item">
-                        <strong>Einfacherer Markteintritt:</strong> Weniger Konkurrenz als in der Industrie
-                    </div>
-                    <div class="advantage-item">
-                        <strong>Weniger Zertifizierungen:</strong> Je nach Einsatzzweck weniger Anforderungen
-                    </div>
-                    <div class="advantage-item">
-                        <strong>Spezifischere Zielgruppe:</strong> Gezieltes Marketing direkt an den Kunden
-                    </div>
-                    <div class="advantage-item">
-                        <strong>Direktes Feedback:</strong> Direkte Kommunikation mit Käufern
-                    </div>
-                    <div class="advantage-item">
-                        <strong>Niedrigerer Preis:</strong> Durch Direktverkauf ohne Zwischenhändler
-                    </div>
-                </div>
-            </div>
-
-            <!-- Target Group -->
-            <div class="target-group slide-up">
-                <h3>🎯 Zielgruppe</h3>
-                <div class="group-grid">
-                    <div class="group-item">
-                        <span class="group-icon">🔧</span>
-                        <strong>Heimwerker*innen & Hobbymechaniker*innen</strong>
-                    </div>
-                    <div class="group-item">
-                        <span class="group-icon">🖨️</span>
-                        <strong>3D-Druck-Enthusiasten</strong>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Positioning -->
-            <div class="positioning slide-up">
-                <h3>💡 Produkt-Positionierung</h3>
-                <p><strong>Soll keine Konkurrenz zu professionellen Hebezügen darstellen!</strong></p>
-                <p style="margin-top: 16px;">Produkt positioniert sich als <strong>preiswerte und nachhaltige Alternative</strong> für den privaten Gebrauch im Werkstatt- und Hobbybereich mit kleineren Lasten.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Beweis Section -->
-    <section id="proof" class="proof-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Theorie vs. Realität</h2>
-            <p class="section-subtitle slide-up">Stimmt die Theorie mit der Realität überein?</p>
-            
-            <div class="proof-content fade-in">
-                <div class="proof-card">
-                    <h3>📐 Theoretische Berechnung</h3>
-                    <ul class="proof-list">
-                        <li><strong>Input Hebel:</strong> 250 mm</li>
-                        <li><strong>Output Hebel:</strong> 25 mm</li>
-                        <li><strong>Theoretische Verstärkung:</strong> ~10x (ohne Reibung)</li>
-                    </ul>
-                </div>
-
-                <div class="proof-card">
-                    <h3>🔬 Praktische Ergebnisse</h3>
-                    <ul class="proof-list">
-                        <li><strong>Messbare Kraft:</strong> 2316,06 N (ohne Reibung)</li>
-                        <li><strong>Mit Reibung:</strong> 1185,82 N</li>
-                        <li><strong>Verstärkungsfaktor:</strong> ~120x</li>
-                    </ul>
-                </div>
-
-                <div class="proof-card">
-                    <h3>⚠️ Reibungsverluste</h3>
-                    <p><strong>Verlust: 48,8%</strong></p>
-                    <p style="margin-top: 12px;">Das Getriebe hat große Reibungsverluste durch:</p>
-                    <ul class="proof-list">
-                        <li>Zahnrad-Reibung</li>
-                        <li>Lagerreibung</li>
-                        <li>3D-Druck Layerlinien (Rauheit)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="proof-conclusion slide-up">
-                <p><strong>Fazit:</strong> Die Theorie stimmt im Großen und Ganzen, aber Reibungsverluste sind signifikant. Bei optimierter Fertigung (Schleifen, Ölen) könnten die Verluste reduziert werden.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ausblick Section -->
-    <section id="outlook" class="outlook-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Ausblick</h2>
-            <p class="section-subtitle slide-up">Was müsste gemacht werden, um das maximale Ergebnis zu erreichen?</p>
-            
-            <div class="outlook-content fade-in">
-                <div class="outlook-card">
-                    <h3>📏 Größere Dimensionen</h3>
-                    <p><strong>Inputhebel:</strong> 40 cm (Raddurchmesser: 80 cm)</p>
-                    <p style="margin-top: 12px;"><strong>Output:</strong> 1,5 cm</p>
-                </div>
-
-                <div class="outlook-card">
-                    <h3>🔄 Umdrehungen & Weg</h3>
-                    <ul class="outlook-list">
-                        <li><strong>Benötigte Umdrehungen:</strong> 4</li>
-                        <li><strong>Umfang Inputrad (80 cm):</strong> 5,03 m</li>
-                        <li><strong>Gesamte Seillänge:</strong> 20,11 m</li>
-                    </ul>
-                </div>
-
-                <div class="outlook-card">
-                    <h3>💡 Mögliche Anwendungen</h3>
-                    <p>Mit diesen Dimensionen wäre eine vollständige Versuchsvorführung möglich und die maximale Kraftverstärkung erreichbar.</p>
-                </div>
-            </div>
-
-            <div class="outlook-conclusion slide-up">
-                <p><strong>Herausforderung:</strong> Bei der Vergrößerung steigen auch die Anforderungen an Steifigkeit und Material. Besonders das große Inputrad (80 cm Durchmesser) müsste besonders stabil ausgelegt werden.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technische Erkenntnisse Section -->
-    <section id="technical-insights" class="insights-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Technische Erkenntnisse</h2>
-            <p class="section-subtitle slide-up">Was wurde während der Entwicklung und Testung gelernt?</p>
-            
-            <div class="technical-grid fade-in">
-                <div class="tech-card">
-                    <div class="tech-icon">📐</div>
-                    <h3>Verformung & Steifigkeit</h3>
-                    <p><strong>Kritischer Faktor:</strong> Verbiegung sorgt für Durchrutschen</p>
-                    <p style="margin-top: 12px;"><em>Nicht nur Sicherheiten gegen Bruch berechnen, sondern auch gegen Verformung!</em></p>
-                </div>
-
-                <div class="tech-card">
-                    <div class="tech-icon">🔩</div>
-                    <h3>Oberflächenrauheit & Reibung</h3>
-                    <p><strong>Überraschung:</strong> Öl und Schleifen war nicht nötig, wie zuerst erwartet</p>
-                    <p style="margin-top: 12px;"><em>3D-Druck Layerlinien beeinflussen Reibung punktuell. Reibungswerte können sich unterscheiden.</em></p>
-                </div>
-
-                <div class="tech-card">
-                    <div class="tech-icon">⚙️</div>
-                    <h3>Infill & Stabilität</h3>
-                    <p><strong>Wichtig:</strong> Infill beeinflusst die Stabilität signifikant</p>
-                    <p style="margin-top: 12px;"><em>Unterschiedliche Infill-Varianten haben unterschiedliche Stabilitäten. Selbst 100% Infill hat durch Layerlinien minimale Lufträume.</em></p>
-                </div>
-
-                <div class="tech-card">
-                    <div class="tech-icon">🔍</div>
-                    <h3>Realitätsnahe Analyse</h3>
-                    <p><strong>Lektion:</strong> Manche Sachen werden erst in der Testphase deutlich</p>
-                    <p style="margin-top: 12px;"><em>Nicht nur Zahlen, sondern auch die Auswirkung von Bedeutung. Probleme wirken sich auf andere aus (z.B. Steifigkeit → Durchrutschen).</em></p>
-                </div>
-
-                <div class="tech-card">
-                    <div class="tech-icon">📊</div>
-                    <h3>Berechnungen vs. Realität</h3>
-                    <p><strong>Einschränkung:</strong> Berechnungen dienten nur als Sicherheiten</p>
-                    <p style="margin-top: 12px;"><em>Nicht um realitätsnahe Schlüsse auf andere Phänomene zu ziehen, wie Steifigkeit. Zum Einsparen der Kosten wurde Infill reduziert.</em></p>
-                </div>
-
-                <div class="tech-card">
-                    <div class="tech-icon">🎯</div>
-                    <h3>Zahnrad-Positionierung</h3>
-                    <p><strong>Problem:</strong> Unterschiedliche Zahnpositionen der Planetengetriebe im Zusammenbau</p>
-                    <p style="margin-top: 12px;"><em>Dadurch ist eine Verschiebung möglich, die zu unregelmäßigem Lauf führt.</em></p>
-                </div>
-            </div>
-
-            <div class="technical-conclusion slide-up">
-                <h3>💡 Zusammenfassung der Erkenntnisse</h3>
-                <ul class="insight-list">
-                    <li><strong>Nicht nur gegen Bruch berechnen:</strong> Auch Verformung ist kritisch!</li>
-                    <li><strong>Infill ist wichtig:</strong> Beeinflusst Steifigkeit und Stabilität signifikant</li>
-                    <li><strong>Testphase ist entscheidend:</strong> Manche Probleme werden erst dort sichtbar</li>
-                    <li><strong>Komplexe Systeme:</strong> Probleme wirken sich auf andere aus (Systemdenken!)</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team-Erkenntnisse Section -->
-    <section id="team-insights" class="team-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Erkenntnisse zum Arbeiten im Team</h2>
-            <p class="section-subtitle slide-up">Was hat die Zusammenarbeit geprägt?</p>
-            
-            <div class="team-grid fade-in">
-                <div class="team-card">
-                    <div class="team-icon">🤝</div>
-                    <h3>Vertrauen & Arbeitsaufteilung</h3>
-                    <ul class="team-list">
-                        <li>Schnellerer Fortschritt durch paralleles Arbeiten</li>
-                        <li>Gleichzeitig arbeiten möglich</li>
-                        <li>Gleichmäßig verteilter Arbeitsaufwand</li>
-                    </ul>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-icon">🛠️</div>
-                    <h3>Gemeinsames Tool: Notion</h3>
-                    <p><strong>Vorteile:</strong></p>
-                    <ul class="team-list">
-                        <li>Kontrolle erzielter Ergebnisse</li>
-                        <li>Ermöglicht gemeinsames Arbeiten</li>
-                        <li>Zentrale Dokumentation</li>
-                    </ul>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-icon">📅</div>
-                    <h3>Zeitliche Planung: Gantt-Chart</h3>
-                    <p><strong>Erfahrungen:</strong></p>
-                    <ul class="team-list">
-                        <li>Finden von gemeinsamen Zeiten zum Arbeiten oder Testen</li>
-                        <li>Wenn keine Zeiten gefunden werden: zeitliche Verzögerung</li>
-                        <li>Wartezeiten und Kommunikationszeiten beanspruchen die meiste Zeit</li>
-                    </ul>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-icon">⏰</div>
-                    <h3>Einhaltung der Termine</h3>
-                    <p><strong>Kritisch:</strong></p>
-                    <ul class="team-list">
-                        <li>Nicht nur Abgaben betroffen</li>
-                        <li>Arbeitsflüsse von Teamkollegen können beim Nicht-Einhalten gestört werden</li>
-                        <li>Zeitliche Verzögerungen haben Kaskadeneffekte</li>
-                    </ul>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-icon">💬</div>
-                    <h3>Offenheit, Ehrlichkeit & Kommunikation</h3>
-                    <p><strong>Auswirkungen:</strong></p>
-                    <ul class="team-list">
-                        <li>Ermöglichen gezielte Problemlösungen</li>
-                        <li>Findung von Kompromissen</li>
-                        <li>Tragen zur Gruppendynamik bei (Gruppencodex)</li>
-                        <li>Unterschiedliche Stärken können dadurch besser genutzt werden</li>
-                    </ul>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-icon">📈</div>
-                    <h3>Gesamterfahrung</h3>
-                    <p><strong>Fazit:</strong></p>
-                    <ul class="team-list">
-                        <li>Kommunikation ist entscheidend für Projekterfolg</li>
-                        <li>Vertrauen ermöglicht effizientes Arbeiten</li>
-                        <li>Strukturierte Planung (Gantt-Chart) hilft bei der Koordination</li>
-                        <li>Ehrliches Feedback fördert die Qualität</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="team-conclusion slide-up">
-                <h3>🎯 Wichtigste Lektion</h3>
-                <p><strong>"Kommunikation und Vertrauen sind genauso wichtig wie technische Kompetenz!"</strong></p>
-                <p style="margin-top: 16px;">Nur durch offene Kommunikation konnten Probleme frühzeitig erkannt und gelöst werden. Die strukturierte Arbeitsaufteilung mit Notion und Gantt-Chart hat die Zusammenarbeit erheblich erleichtert.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Qualitätskriterien & Fazit Section -->
-    <section id="quality-conclusion" class="conclusion-section">
-        <div class="container">
-            <h2 class="section-title slide-up">Qualitätskriterien & Fazit</h2>
-            <p class="section-subtitle slide-up">Erfüllung der Anforderungen und Gesamtbewertung</p>
-            
-            <!-- Quality Criteria -->
-            <div class="quality-grid fade-in">
-                <div class="quality-card">
-                    <div class="quality-icon">♻️</div>
-                    <h3>Nachhaltigkeit</h3>
-                    <ul class="quality-list">
-                        <li><strong>Recyclebar:</strong> PLA ist biologisch abbaubar</li>
-                        <li><strong>Demontierbar:</strong> Alle Teile können getrennt werden</li>
-                        <li><strong>Austauschbar:</strong> Einzelteile können ersetzt werden</li>
-                    </ul>
-                </div>
-
-                <div class="quality-card">
-                    <div class="quality-icon">⏱️</div>
-                    <h3>Produktionszeit</h3>
-                    <p><strong>Vorteil:</strong> Produktion außerhalb der Arbeitszeit möglich</p>
-                    <p style="margin-top: 12px;"><em>Keine zusätzlichen Maschinenkosten während der Arbeitszeit</em></p>
-                </div>
-
-                <div class="quality-card">
-                    <div class="quality-icon">🎬</div>
-                    <h3>Demonstrierbarkeit</h3>
-                    <ul class="quality-list">
-                        <li><strong>Digitale Messanzeige:</strong> Präzise Kraftmessung möglich</li>
-                        <li><strong>Vorführung:</strong> Funktion direkt sichtbar und nachvollziehbar</li>
-                    </ul>
-                </div>
-
-                <div class="quality-card">
-                    <div class="quality-icon">💰</div>
-                    <h3>Wirtschaftlichkeit</h3>
-                    <p><strong>Gesamtpreis:</strong> 15,12 € (optimiert)</p>
-                    <p style="margin-top: 12px;"><em>Deutlich günstiger als professionelle Hebezüge (100€-1000€)</em></p>
-                </div>
-
-                <div class="quality-card">
-                    <div class="quality-icon">⚡</div>
-                    <h3>Energieeffizienz</h3>
-                    <p><strong>Verstärkung:</strong> Ein Vielfaches der Eingangskraft</p>
-                    <p style="margin-top: 12px;"><em>Insgesamt 43 kg messbare Kraft bei nur 1 kg Eingangslast</em></p>
-                </div>
-
-                <div class="quality-card">
-                    <div class="quality-icon">📊</div>
-                    <h3>Reibungsverluste</h3>
-                    <p><strong>Verlust:</strong> 48,8%</p>
-                    <p style="margin-top: 12px;"><em>Getriebe hat große Reibungsverluste durch Zahnrad- und Lagerreibung</em></p>
-                </div>
-            </div>
-
-            <!-- Final Summary -->
-            <div class="final-summary slide-up">
-                <h3>🏆 Gesamtfazit</h3>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <strong>Kraftverstärkung:</strong> Um ein Vielfaches (120x theoretisch, ~43 kg praktisch)
-                    </div>
-                    <div class="summary-item">
-                        <strong>Energieeffizienz:</strong> 51,2% Effizienz (48,8% Verlust durch Reibung)
-                    </div>
-                    <div class="summary-item">
-                        <strong>Wirtschaftlichkeit:</strong> Gesamtpreis nur 15,12 € (optimiert)
-                    </div>
-                    <div class="summary-item">
-                        <strong>Nachhaltigkeit:</strong> Recyclebar, demontierbar, austauschbar
-                    </div>
-                </div>
-
-                <p style="margin-top: 32px; font-size: 18px;"><strong>Das Projekt hat gezeigt, dass mit einfachen Mitteln (3D-Druck, Standardmaterialien) eine beeindruckende Kraftverstärkung erreicht werden kann. Trotz Reibungsverlusten ist das System funktional und für den privaten Gebrauch geeignet.</strong></p>
-            </div>
-
-            <!-- Thank You -->
-            <div class="thank-you slide-up">
-                <h2>Vielen Dank für Ihre Aufmerksamkeit!</h2>
-                <p>Gibt es noch Fragen?</p>
-            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Projektarbeit I</h3>
                     <p>Mechanischer Kraftverstärker – Interaktive Produktpräsentation mit modernster CAD-Technologie und 3D-Visualisierung.</p>
                 </div>
+                
                 <div class="footer-section">
                     <h4>Schnelllinks</h4>
                     <ul>
@@ -1517,19 +539,24 @@
                         <li><a href="#cad">CAD & 3D</a></li>
                         <li><a href="#concept">Konzept</a></li>
                         <li><a href="#calculations">Berechnungen</a></li>
-                        <li><a href="#production">Fertigung</a></li>
-                        <li><a href="#costs">Kosten</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-section">
                     <h4>Ressourcen</h4>
                     <ul>
-                        <li><a href="https://a360.co/4fFVrYG" target="_blank">Fusion 360</a></li>
-                        <li><a href="models/Projektarbeit_1_v72.3mf" download>3MF Download</a></li>
+                        <li><a href="https://a360.co/4fFVrYG" target="_blank" rel="noopener noreferrer">Fusion 360</a></li>
                         <li><a href="models/Projektarbeit.obj" download>OBJ Download</a></li>
+                        <li><a href="models/Projektarbeit_1_v72.3mf" download>3MF Download</a></li>
                     </ul>
                 </div>
+                
+                <div class="footer-section">
+                    <h4>Kontakt</h4>
+                    <p>Projektarbeit im Rahmen des Maschinenbaus Studium.</p>
+                </div>
             </div>
+            
             <div class="footer-bottom">
                 <p>&copy; 2026 Projektarbeit I. Alle Rechte vorbehalten.</p>
                 <div class="footer-links">
@@ -1539,6 +566,7 @@
         </div>
     </footer>
 
+    <!-- Main JavaScript -->
     <script src="js/main.js"></script>
 </body>
 </html>
