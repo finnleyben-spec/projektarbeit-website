@@ -707,9 +707,8 @@ input:focus-visible {
 
 .viewer-fusion {
     width: 100%;
-    max-width: 800px;
     margin: 0 auto;
-    height: 600px;
+    height: 400px;
 }
 
 .viewer-fusion iframe {
