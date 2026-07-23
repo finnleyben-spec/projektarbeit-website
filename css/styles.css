@@ -836,7 +836,7 @@ input:focus-visible {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin-bottom: 32px;
 }
@@ -845,7 +845,7 @@ input:focus-visible {
     text-align: center;
     transition: transform 0.3s ease;
     width: 100%;
-    max-width: 400px; /* Limit image size */
+    max-width: 350px; /* Smaller limit */
     margin: 0 auto;
 }
 
