@@ -79,7 +79,7 @@ input:focus-visible {
 }
 
 .logo {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--color-text);
     text-decoration: none;
@@ -1793,20 +1793,22 @@ input:focus-visible {
         position: static;
         flex-direction: row;
         align-items: center;
-        gap: 8px;
+        gap: 2px;
         padding: 0;
         transform: none;
         opacity: 1;
         background: none;
         backdrop-filter: none;
-        display: flex; /* FIX: Enable flex layout on desktop */
+        display: flex;
+        flex-wrap: nowrap; /* Prevent wrapping */
     }
 
     .nav-links a,
     .nav-links button {
-        padding: 8px 16px;
-        font-size: 15px;
+        padding: 4px 8px;
+        font-size: 13px;
         min-height: auto;
+        white-space: nowrap; /* Keep text on one line */
     }
 
     /* Hero */
