@@ -844,7 +844,8 @@ input:focus-visible {
 .gallery-section .gallery-item {
     text-align: center;
     transition: transform 0.3s ease;
-    width: 100%;
+    width: 100% !important;
+    height: auto !important;
     overflow: hidden;
     border-radius: var(--radius-lg);
     background: #f5f5f7;
@@ -1181,21 +1182,21 @@ input:focus-visible {
     padding: 8px 0;
 }
 
-.gallery-item {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
+.product-thumbnail {
+    width: 70px !important;
+    height: 70px !important;
+    object-fit: cover !important;
     border-radius: var(--radius-md);
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.5 !important;
     transition: all 0.3s ease;
     border: 3px solid transparent;
     flex-shrink: 0;
 }
 
-.gallery-item:hover,
-.gallery-item.active {
-    opacity: 1;
+.product-thumbnail:hover,
+.product-thumbnail.active {
+    opacity: 1 !important;
     border-color: var(--color-accent);
 }
 
