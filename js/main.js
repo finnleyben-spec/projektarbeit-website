@@ -310,12 +310,12 @@ document.addEventListener('keydown', function(event) {
 // Image switching for thumbnails
 let currentImageIndex = 0;
 const images = [
-    './assets/gear_image.png',
+    './assets/notion-images/notion_image_15.jpg',
     './assets/videos/video1_fixed.mp4',
     './assets/videos/Explosion4.mp4'
 ];
 
-function changeImage(index) {
+function switchAnimation(index) {
     const mainImage = document.getElementById('mainProductImage');
     const thumbnails = document.querySelectorAll('.thumbnail');
     
@@ -336,6 +336,19 @@ function changeImage(index) {
         mainImage.src = images[index];
         mainImage.style.opacity = '1';
     }, 200);
+}
+
+function switchImage(index) {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    // Update active gallery item
+    galleryItems.forEach((item, i) => {
+        if (i === index) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
 }
 
 // Easter Egg Function - Fun celebration instead of ordering
