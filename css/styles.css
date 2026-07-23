@@ -706,10 +706,9 @@ input:focus-visible {
 }
 
 .viewer-fusion {
-    width: 100%;
-    max-width: 600px;
+    width: 800px;
+    height: 600px;
     margin: 0 auto;
-    height: 1000px;
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
