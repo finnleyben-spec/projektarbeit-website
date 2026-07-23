@@ -836,14 +836,17 @@ input:focus-visible {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
     margin-bottom: 32px;
 }
 
 .gallery-item {
     text-align: center;
     transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 500px; /* Limit image size */
+    margin: 0 auto;
 }
 
 .gallery-image {
