@@ -848,16 +848,16 @@ input:focus-visible {
     overflow: hidden;
     border-radius: var(--radius-lg);
     background: #f5f5f7;
+    opacity: 1 !important;
 }
 
 .gallery-section .gallery-image {
     width: 100% !important;
-    height: 100%;
-    aspect-ratio: 4/3;
-    object-fit: contain !important;
+    height: auto !important;
     display: block;
     margin: 0 auto;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    filter: none !important;
 }
 
 .gallery-section .gallery-item:hover {
