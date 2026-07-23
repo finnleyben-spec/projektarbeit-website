@@ -1793,7 +1793,7 @@ input:focus-visible {
         position: static;
         flex-direction: row;
         align-items: center;
-        gap: 2px;
+        gap: 3px;
         padding: 0;
         transform: none;
         opacity: 1;
@@ -1805,8 +1805,8 @@ input:focus-visible {
 
     .nav-links a,
     .nav-links button {
-        padding: 4px 8px;
-        font-size: 13px;
+        padding: 5px 8px;
+        font-size: 13.5px;
         min-height: auto;
         white-space: nowrap; /* Keep text on one line */
     }
