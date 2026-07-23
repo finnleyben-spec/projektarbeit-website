@@ -147,7 +147,7 @@ input:focus-visible {
     display: flex;
     align-items: center;
     padding: 16px 24px;
-    color: var(--color-text);
+    color: var(--color-text) !important; /* Force text color */
     text-decoration: none;
     font-size: 17px;
     font-weight: 500;
@@ -159,7 +159,7 @@ input:focus-visible {
 .nav-links a:hover,
 .nav-links button:hover {
     background-color: var(--color-gray-100);
-    color: var(--color-accent);
+    color: var(--color-accent) !important; /* Force hover color */
 }
 
 /* Buy Button in Nav - Mobile */
