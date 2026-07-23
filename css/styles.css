@@ -130,6 +130,7 @@ input:focus-visible {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     z-index: 999;
+    display: flex; /* Ensure flex layout */
 }
 
 .nav-links.active {
@@ -161,7 +162,7 @@ input:focus-visible {
     color: var(--color-accent);
 }
 
-/* Buy Button in Nav */
+/* Buy Button in Nav - Mobile */
 .nav-links .buy-button {
     justify-content: center;
     margin-top: 8px;
@@ -170,12 +171,29 @@ input:focus-visible {
     color: white;
     font-size: 16px;
     padding: 14px 28px;
+    min-height: auto;
 }
 
 .nav-links .buy-button:hover {
     background: linear-gradient(135deg, #0071e3 0%, #005bb5 100%);
     color: white;
     transform: scale(1.02);
+}
+
+/* Buy Button - Desktop (überlebt die generische Regel) */
+.nav-links .buy-button {
+    background: linear-gradient(135deg, #0071e3 0%, #005bb5 100%) !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    font-size: 16px !important;
+    border-radius: 980px !important;
+    min-height: auto !important;
+}
+
+.nav-links .buy-button:hover {
+    background: linear-gradient(135deg, #0071e3 0%, #005bb5 100%) !important;
+    color: white !important;
+    transform: scale(1.05);
 }
 
 /* ============================================
