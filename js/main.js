@@ -251,6 +251,145 @@ window.addEventListener('resize', function() {
     }
 });
 
+// Mobile Menu Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            
+            // Update aria-expanded for accessibility
+            const isExpanded = navLinks.classList.contains('active');
+            menuToggle.setAttribute('aria-expanded', isExpanded);
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+});
+
+// Purchase Modal Functions
+function openPurchaseModal() {
+    const modal = document.getElementById('purchaseModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+}
+
+function closePurchaseModal() {
+    const modal = document.getElementById('purchaseModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(event) {
+    const modal = document.getElementById('purchaseModal');
+    if (event.target === modal) {
+        closePurchaseModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closePurchaseModal();
+    }
+});
+
+// Image switching for thumbnails
+let currentImageIndex = 0;
+const images = [
+    './assets/gear_image.png',
+    './assets/videos/video1_fixed.mp4',
+    './assets/videos/Explosion4.mp4'
+];
+
+function changeImage(index) {
+    const mainImage = document.getElementById('mainProductImage');
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    
+    currentImageIndex = index;
+    
+    // Update active thumbnail
+    thumbnails.forEach((thumb, i) => {
+        if (i === index) {
+            thumb.classList.add('active');
+        } else {
+            thumb.classList.remove('active');
+        }
+    });
+    
+    // Change main image with fade effect
+    mainImage.style.opacity = '0';
+    setTimeout(() => {
+        mainImage.src = images[index];
+        mainImage.style.opacity = '1';
+    }, 200);
+}
+
+// Easter Egg Function - Fun celebration instead of ordering
+function triggerEasterEgg() {
+    const button = document.querySelector('.easter-egg-button');
+    
+    // Add celebration animation
+    button.classList.add('easter-egg-active');
+    
+    // Create confetti effect
+    createConfetti();
+    
+    // Show fun message
+    setTimeout(() => {
+        alert('🎉 Simulation abgeschlossen!\n\nDanke für dein Interesse am mechanischen Kraftverstärker!\n\nDies war nur eine Demo - es wurde nichts bestellt.\n\nTrotzdem: Das Projekt ist cool, oder? 😄');
+        
+        // Reset button animation
+        setTimeout(() => {
+            button.classList.remove('easter-egg-active');
+        }, 600);
+    }, 300);
+}
+
+// Confetti Effect
+function createConfetti() {
+    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dda0dd', '#87ceeb'];
+    
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.borderRadius = '50%';
+        confetti.style.zIndex = '99999';
+        confetti.style.pointerEvents = 'none';
+        
+        document.body.appendChild(confetti);
+        
+        // Animate falling
+        const animation = confetti.animate([
+            { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+            { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+        ], {
+            duration: Math.random() * 3000 + 2000,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        });
+        
+        animation.onfinish = () => confetti.remove();
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initThreeJS();
