@@ -851,9 +851,9 @@ input:focus-visible {
 }
 
 .gallery-section .gallery-image {
-    width: 400px !important;
-    height: 300px !important;
-    object-fit: cover !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
     display: block;
     margin: 0 auto;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
