@@ -851,10 +851,11 @@ input:focus-visible {
 }
 
 .gallery-section .gallery-image {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: contain !important;
+    width: 400px !important;
+    height: 300px !important;
+    object-fit: cover !important;
     display: block;
+    margin: 0 auto;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -871,11 +872,21 @@ input:focus-visible {
     .gallery-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
+    
+    .gallery-section .gallery-image {
+        width: 300px !important;
+        height: 225px !important;
+    }
 }
 
 @media (max-width: 480px) {
     .gallery-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .gallery-section .gallery-image {
+        width: 250px !important;
+        height: 187px !important;
     }
 }
 
