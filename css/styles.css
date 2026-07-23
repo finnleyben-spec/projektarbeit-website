@@ -836,8 +836,8 @@ input:focus-visible {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
     margin-bottom: 32px;
 }
 
@@ -845,7 +845,7 @@ input:focus-visible {
     text-align: center;
     transition: transform 0.3s ease;
     width: 100%;
-    max-width: 500px; /* Limit image size */
+    max-width: 400px; /* Limit image size */
     margin: 0 auto;
 }
 
@@ -855,7 +855,7 @@ input:focus-visible {
     aspect-ratio: 4/3;
     object-fit: cover;
     border-radius: var(--radius-lg);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -864,7 +864,7 @@ input:focus-visible {
 }
 
 .gallery-image:hover {
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .caption {
