@@ -184,7 +184,29 @@
                 
                 <div class="viewer-controls">
                     <a href="https://a360.co/4fFVrYG" target="_blank" rel="noopener noreferrer" class="control-btn">🔗 Fusion 360 öffnen</a>
-                    <a href="models/Projektarbeit_1_v72.3mf" download class="control-btn">⬇ 3MF Download</a>
+                    <button id="toggle-3d-viewer" class="control-btn">🎲 Interaktiver 3D-Viewer</button>
+                </div>
+            </div>
+
+            <!-- Interactive 3D Viewer (Hidden by default) -->
+            <div id="threejs-container" class="viewer-container fade-in" style="display: none;">
+                <div id="threejs-viewer" class="viewer-fusion">
+                    <!-- Three.js canvas will be inserted here -->
+                </div>
+                <div class="viewer-controls">
+                    <button onclick="toggle3DViewer()" class="control-btn">✕ Viewer schließen</button>
+                    <a href="models/Projektarbeit.obj" download class="control-btn">⬇ OBJ Download</a>
+                    <a href="models/Projektarbeit.mtl" download class="control-btn">🎨 MTL Download</a>
+                </div>
+            </div>
+
+            <!-- BambuStudio Slicer Info -->
+            <div class="cad-status-box slide-up">
+                <h3>🖨️ Bambu Studio Slicer-Datei</h3>
+                <p style="margin-bottom: 16px; color: #6e6e73;">Die .3mf-Datei enthält alle Einstellungen für den Bambu Lab 3D-Drucker (Infill, Layer-Höhe, Stützstrukturen etc.). Öffne sie direkt in Bambu Studio zum Slicen.</p>
+                <div class="viewer-controls">
+                    <a href="models/Projektarbeit_1_v72.3mf" download class="control-btn">⬇️ 3MF Download (Bambu Studio)</a>
+                    <span style="color: #6e6e73; font-size: 14px;">Format: .3mf | Größe: ~8.5 MB</span>
                 </div>
             </div>
 
